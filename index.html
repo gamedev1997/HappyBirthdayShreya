@@ -6,718 +6,54 @@
     <title>Happy Birthday Shreya!</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb);
-            overflow: hidden;
-            position: relative;
-            padding: 20px;
-        }
-
-        .container {
-            position: relative;
-            width: 100%;
-            max-width: 900px;
-            height: 600px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-        }
-
-        /* Birthday Screen */
-        #birthday-screen {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
-        }
-
-        /* Floating Heart Animation */
-        .floating-heart {
-            position: absolute;
-            width: 300px;
-            height: 270px;
-            margin-bottom: 40px;
-            transform: scale(0.1);
-            animation: 
-                heartGrow 1.5s cubic-bezier(0.47, 1.64, 0.41, 0.8) forwards,
-                floatHeart 4s ease-in-out infinite;
-            animation-delay: 0s, 1.5s;
-        }
-
-        .heart {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #ff4d6d, #ff758c);
-            transform: rotate(45deg);
-            box-shadow: 
-                0 0 60px rgba(255, 77, 109, 0.8),
-                0 0 120px rgba(255, 77, 109, 0.6);
-            animation: heartbeat 2s infinite ease-in-out;
-            border-radius: 50% 50% 0 0;
-        }
-
-        .heart::before,
-        .heart::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #ff4d6d, #ff758c);
-            border-radius: 50%;
-        }
-
-        .heart::before {
-            top: -50%;
-            left: 0;
-        }
-
-        .heart::after {
-            top: 0;
-            left: -50%;
-        }
-
-        /* Heart Photo */
-        .heart-photo {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-45deg);
-            width: 60%;
-            height: 60%;
-            border-radius: 50%;
-            overflow: hidden;
-            z-index: 2;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            border: 5px solid white;
-            background: #fff;
-        }
-
-        .heart-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transform: rotate(45deg) scale(1.2);
-        }
-
-        /* Message Container */
-        .message-container {
-            text-align: center;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            max-width: 90%;
-            transform: translateY(20px);
-            opacity: 0;
-            animation: messageAppear 1.5s ease forwards;
-            animation-delay: 1.5s;
-        }
-
-        h1 {
-            font-family: 'Pacifico', cursive;
-            font-size: 4.5rem;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #ff4d6d, #ff758c, #ff8fa3);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .highlight {
-            color: #ff4d6d;
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(255, 77, 109, 0.5);
-            font-size: 1.1em;
-            animation: pulseName 2s infinite;
-        }
-
-        h2 {
-            font-size: 1.8rem;
-            color: #590d22;
-            margin-bottom: 25px;
-            font-weight: 600;
-        }
-
-        .message {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            color: #590d22;
-            margin-bottom: 20px;
-        }
-
-        /* Next Button */
-        .next-btn {
-            margin-top: 30px;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            background: linear-gradient(45deg, #ff4d6d, #ff758c);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(255, 77, 109, 0.5);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .next-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(255, 77, 109, 0.7);
-        }
-
-        .next-btn:active {
-            transform: translateY(0);
-        }
-
-        .next-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: 0.5s;
-            z-index: -1;
-        }
-
-        .next-btn:hover::before {
-            left: 100%;
-        }
-
-        /* Book Screen */
-        #book-screen {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: transform 1s ease, opacity 1s ease;
-        }
-
-        .book-container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            perspective: 1500px;
-        }
-
-        .book-title {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem;
-            color: #ff4d6d;
-            margin-bottom: 20px;
-            text-align: center;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .book {
-            position: relative;
-            width: 320px;
-            height: 450px;
-            transform-style: preserve-3d;
-            transition: transform 0.5s ease;
-        }
-
-        .page {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            transform-style: preserve-3d;
-            transform-origin: left center;
-            transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
-            border-radius: 10px 5px 5px 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .front, .back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            backface-visibility: hidden;
-            display: flex;
-            /* flex-direction: column; */
-            justify-content: center;
-            align-items: center;
-            padding: 30px;
-            box-sizing: border-box;
-            text-align: center;
-            border-radius: 10px;
-        }
-
-        .front {
-            background: linear-gradient(45deg, #fff5f7, #ffeef2);
-            border-right: 1px solid #f8d7da;
-        }
-
-        .back {
-            background: linear-gradient(45deg, #ffeef2, #fff5f7);
-            transform: rotateY(180deg);
-            border-left: 1px solid #f8d7da;
-        }
-
-        .page-image {
-            width: 200px;
-            height: 200px;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            border: 5px solid white;
-        }
-
-        .page-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .shayari {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.8rem;
-            color: #590d22;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .page-number {
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
-            font-size: 1rem;
-            color: #ff4d6d;
-            font-weight: 600;
-        }
-
-        .book-nav {
-            margin-top: 30px;
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-btn {
-            padding: 12px 25px;
-            font-size: 1rem;
-            background: linear-gradient(45deg, #ff4d6d, #ff758c);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 77, 109, 0.6);
-        }
-
-        .nav-btn:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .home-btn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            background: linear-gradient(45deg, #ff8fa3, #ffccd5);
-            color: #590d22;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .home-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Confetti Container */
-        .confetti-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 100;
-            overflow: hidden;
-        }
-
-        .confetti {
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            background: #ff4d6d;
-            transform: rotate(45deg);
-            animation: confettiFall 5s ease-in-out forwards;
-        }
-
-        .confetti::before,
-        .confetti::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: #ff4d6d;
-            border-radius: 50%;
-        }
-
-        .confetti::before {
-            top: -50%;
-            left: 0;
-        }
-
-        .confetti::after {
-            top: 0;
-            left: -50%;
-        }
-
-        /* Background Hearts */
-        .bg-hearts {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .bg-heart {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #ff4d6d;
-            transform: rotate(45deg);
-            opacity: 0;
-            animation: float 15s infinite linear;
-            border-radius: 50% 50% 0 0;
-        }
-
-        .bg-heart::before,
-        .bg-heart::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: #ff4d6d;
-            border-radius: 50%;
-        }
-
-        .bg-heart::before {
-            top: -50%;
-            left: 0;
-        }
-
-        .bg-heart::after {
-            top: 0;
-            left: -50%;
-        }
-
-        /* Gift Opening Animation */
-        .gift-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s;
-        }
-
-        .gift-box {
-            width: 200px;
-            height: 200px;
-            position: relative;
-            transform: scale(0);
-            animation: giftScale 1s forwards;
-        }
-
-        .box {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #ff4d6d, #ff758c);
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .lid {
-            position: absolute;
-            width: 110%;
-            height: 20%;
-            background: linear-gradient(45deg, #ff8fa3, #ffccd5);
-            top: -10%;
-            left: -5%;
-            border-radius: 10px 10px 0 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .ribbon {
-            position: absolute;
-            width: 20px;
-            height: 100%;
-            background: white;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0.7;
-        }
-
-        .bow {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            background: #ffccd5;
-            top: -15%;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 50%;
-        }
-
-        .bow::before,
-        .bow::after {
-            content: '';
-            position: absolute;
-            width: 70px;
-            height: 30px;
-            background: #ffccd5;
-            border-radius: 50%;
-            top: 15px;
-        }
-
-        .bow::before {
-            left: -25px;
-            transform: rotate(-45deg);
-        }
-
-        .bow::after {
-            right: -25px;
-            transform: rotate(45deg);
-        }
-
-        /* Animations */
-        @keyframes heartGrow {
-            0% { transform: scale(0.1); }
-            70% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes heartbeat {
-            0% { transform: rotate(45deg) scale(1); }
-            50% { transform: rotate(45deg) scale(1.05); }
-            100% { transform: rotate(45deg) scale(1); }
-        }
-
-        @keyframes messageAppear {
-            0% { transform: translateY(20px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes giftScale {
-            0% { transform: scale(0); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes confettiFall {
-            0% { top: -50px; transform: rotate(45deg) rotateZ(0) scale(0.8); opacity: 1; }
-            100% { top: 100%; transform: rotate(45deg) rotateZ(720deg) scale(1.2); opacity: 0; }
-        }
-        
-        @keyframes pulseName {
-            0% { text-shadow: 0 0 10px rgba(255, 77, 109, 0.5); }
-            50% { text-shadow: 0 0 20px rgba(255, 77, 109, 0.8); }
-            100% { text-shadow: 0 0 10px rgba(255, 77, 109, 0.5); }
-        }
-        
-        @keyframes floatHeart {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0); }
-        }
-        
-        @keyframes float {
-            0% { top: 110%; opacity: 0; transform: rotate(45deg) scale(0.5); }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.7; }
-            100% { top: -10%; opacity: 0; transform: rotate(45deg) scale(1); }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                height: 500px;
-            }
-            
-            .floating-heart {
-                width: 220px;
-                height: 195px;
-            }
-            
-            h1 {
-                font-size: 3.5rem;
-            }
-            
-            .book {
-                width: 280px;
-                height: 400px;
-            }
-            
-            .shayari {
-                font-size: 1.5rem;
-            }
-            
-            .page-image {
-                width: 160px;
-                height: 160px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                height: 450px;
-            }
-            
-            .floating-heart {
-                width: 180px;
-                height: 160px;
-            }
-            
-            h1 {
-                font-size: 2.8rem;
-            }
-            
-            .book {
-                width: 240px;
-                height: 350px;
-            }
-            
-            .shayari {
-                font-size: 1.3rem;
-            }
-            
-            .book-title {
-                font-size: 2.8rem;
-            }
-            
-            .page-image {
-                width: 140px;
-                height: 140px;
-            }
-            
-            .book-nav {
-                flex-direction: le;
-                gap: 10px;
-            }
-            
-            .nav-btn {
-                padding: 10px 20px;
-                font-size: 0.9rem;
-            }
-            
-            .home-btn {
-                padding: 8px 16px;
-                font-size: 0.9rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Confetti Container -->
     <div class="confetti-container" id="confettiContainer"></div>
-    
+
     <!-- Background Hearts -->
     <div class="bg-hearts" id="bgHearts"></div>
-    
+
     <!-- Birthday Screen -->
     <div class="container">
-        <div id="birthday-screen">
+        <div id="birthday-screen" class="screen">
             <div class="floating-heart">
                 <div class="heart"></div>
                 <div class="heart-photo">
                     <img src="Image1.jpg" alt="Shreya">
                 </div>
             </div>
-            
+
             <div class="message-container">
                 <h1>Happy Birthday <span class="highlight">Shreya</span>!</h1>
                 <h2>To My Dearest Love</h2>
                 <div class="message">
                     <p>On this special day, I wish you endless joy, boundless love, and all the happiness your heart can hold.</p>
                 </div>
-                <button class="next-btn" onclick="openGift()">Open Your Gift <i class="fas fa-gift"></i></button>
+                <button class="btn next-btn" onclick="openGift()">Open Your Gift <i class="fas fa-gift hint"></i></button>
             </div>
         </div>
-        
+
         <!-- Book Screen -->
-        <div id="book-screen">
+        <div id="book-screen" class="screen">
             <div class="book-container">
                 <h2 class="book-title">For My Shreya</h2>
                 <div class="book" id="love-book">
                     <!-- Pages will be generated by JavaScript -->
                 </div>
                 <div class="book-nav">
-                    <button class="nav-btn" onclick="prevPage()" id="prev-btn"><i class="fas fa-arrow-left"></i> Previous</button>
-                    <button class="nav-btn" onclick="nextPage()" id="next-btn">Next <i class="fas fa-arrow-right"></i></button>
+                    <button class="btn nav-btn" onclick="prevPage()" id="prev-btn"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn nav-btn" onclick="nextPage()" id="next-btn">Next <i class="fas fa-arrow-right"></i></button>
                 </div>
-                <button class="home-btn" onclick="goHome()"><i class="fas fa-home"></i> Back to Home</button>
+                <button class="btn home-btn" onclick="goHome()"><i class="fas fa-home"></i> Back to Home</button>
             </div>
         </div>
     </div>
 
     <!-- Gift Opening Animation -->
     <div class="gift-animation" id="giftAnimation">
-        <div class="gift-box">
+        <div class="gift-box" id="giftBox">
             <div class="box">
                 <div class="ribbon"></div>
             </div>
@@ -728,235 +64,231 @@
     </div>
 
     <script>
-        // Create background hearts
-        const bgHearts = document.getElementById('bgHearts');
-        const heartCount = 30;
-        
-        for (let i = 0; i < heartCount; i++) {
-            const heart = document.createElement('div');
-            heart.classList.add('bg-heart');
-            
-            // Random properties for each heart
-            const size = Math.random() * 15 + 10; // 10px to 25px
-            const left = Math.random() * 100; // 0% to 100%
-            const delay = Math.random() * 15; // 0s to 15s
-            const duration = Math.random() * 10 + 15; // 15s to 25s
-            const colorVal = Math.floor(Math.random() * 40) + 200; // 200-240 for pink shades
-            const color = `rgb(${colorVal}, ${Math.floor(colorVal/2.5)}, ${Math.floor(colorVal/1.5)})`;
-            
-            heart.style.width = `${size}px`;
-            heart.style.height = `${size}px`;
-            heart.style.left = `${left}%`;
-            heart.style.animationDelay = `${delay}s`;
-            heart.style.animationDuration = `${duration}s`;
-            heart.style.background = color;
-            
-            bgHearts.appendChild(heart);
-        }
-        
-        // Page content - images and shayaris
-        const pageContent = [
-            { 
-                img: "image2.jpg",
-                shayari: "Tere ishq ne diya mujhe sab kuch,<br>Dard bhi diya, sukoon bhi diya."
-            },
-            { 
-                img: "image2.jpg",
-                shayari: "Dil ki dhadkan ban gaye ho tum,<br>Har saans mein tum ho, har khwaish mein tum."
-            },
-            { 
-                img: "image2.jpg",
-                shayari: "Tere bina adhoori si lagti hai zindagi,<br>Tujhse hi hai meri har khushi."
-            },
-            { 
-                img: "image2.jpg",
-                shayari: "Tere chehre ki muskan hai jahan,<br>Wahan mere dil ka sukoon hai."
-            },
-            { 
-                img: "image2.jpg",
-                shayari: "Dil ki gehrayi se nikal aaya hai ek armaan,<br>Ke tum hi ho meri zindagi ka ehsaas."
-            },
-            { 
-                img: "image2.jpg",
-                shayari: "Tumhare ishq mein kho gaye hum,<br>Ab na kuch chahiye, bas tum ho to kaafi hai."
-            },
-            { 
-                img: "image2.jpg",
-                shayari: "Har pal tumhare sath bitana chahta hu,<br>Tumhari har saans ka hissa ban na chahta hu."
-            },
-            { 
-                img: "image2.jpg",
-                shayari: "Tum jo ho pass to lagta hai,<br>Duniya ki har khushi mere pass hai."
-            },
-            { 
-                img: "image2.jpg",
-                shayari: "Tumhari yaadon mein kho kar,<br>Main har pal tumhare pass rehta hu."
-            },
-            { 
-                img: "image2.jpg",
-                shayari: "Tum ho to har lamha khushiyon se bhara hai,<br>Tum ho to zindagi rangeen hai."
-            }
-        ];
-        
-        let currentPage = 0;
-        
-        // Generate book pages
-        function createBook() {
-            const book = document.getElementById('love-book');
-            book.innerHTML = '';
-            
-            for (let i = 0; i < pageContent.length; i++) {
-                const page = document.createElement('div');
-                page.className = 'page';
-                page.style.zIndex = pageContent.length - i;
-                
-                if (i === 0) {
-                    page.classList.add('active');
-                }
-                
-                page.innerHTML = `
-                    <div class="front">
-                        <div class="page-image">
-                            <img src="${pageContent[i].img}" alt="Love Page ${i+1}">
-                        </div>
-                        <div class="shayari">${pageContent[i].shayari}</div>
-                        <div class="page-number">${i+1}</div>
-                    </div>
-                    <div class="back">
-                        <div class="page-image">
-                            <img src="${pageContent[(i+1) % pageContent.length].img}" alt="Love Page ${i+2}">
-                        </div>
-                        <div class="shayari">${pageContent[(i+1) % pageContent.length].shayari}</div>
-                        <div class="page-number">${i+2}</div>
-                    </div>
-                `;
-                
-                book.appendChild(page);
-            }
-            
-            updateNavigation();
-        }
-        
-        // Create heart confetti
-        function createHeartConfetti() {
+        document.addEventListener('DOMContentLoaded', () => {
+            // DOM Elements
+            const bgHearts = document.getElementById('bgHearts');
             const confettiContainer = document.getElementById('confettiContainer');
-            confettiContainer.innerHTML = '';
-            
-            for (let i = 0; i < 100; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                
-                // Random properties
-                const left = Math.random() * 100;
-                const delay = Math.random() * 5;
-                const duration = 2 + Math.random() * 3;
-                const size = 8 + Math.random() * 12;
-                const colorVal = Math.floor(Math.random() * 40) + 200;
-                const color = `rgb(${colorVal}, ${Math.floor(colorVal/2.5)}, ${Math.floor(colorVal/1.5)})`;
-                
-                confetti.style.left = `${left}%`;
-                confetti.style.animationDelay = `${delay}s`;
-                confetti.style.animationDuration = `${duration}s`;
-                confetti.style.width = `${size}px`;
-                confetti.style.height = `${size}px`;
-                confetti.style.background = color;
-                
-                confettiContainer.appendChild(confetti);
-            }
-        }
-        
-        // Show gift animation
-        function openGift() {
+            const birthdayScreen = document.getElementById('birthday-screen');
+            const bookScreen = document.getElementById('book-screen');
             const giftAnimation = document.getElementById('giftAnimation');
-            giftAnimation.style.opacity = '1';
-            giftAnimation.style.pointerEvents = 'all';
-            
-            setTimeout(() => {
-                giftAnimation.style.opacity = '0';
-                giftAnimation.style.pointerEvents = 'none';
-                
-                // Create confetti effect
-                createHeartConfetti();
-                
-                setTimeout(showBook, 1000);
-            }, 2500);
-        }
-        
-        // Show book screen
-        function showBook() {
-            const birthdayScreen = document.getElementById('birthday-screen');
-            const bookScreen = document.getElementById('book-screen');
-            
-            birthdayScreen.style.transform = 'translateY(-100px)';
-            birthdayScreen.style.opacity = '0';
-            
-            setTimeout(() => {
-                birthdayScreen.style.display = 'none';
-                bookScreen.style.display = 'flex';
-                
-                setTimeout(() => {
-                    bookScreen.style.opacity = '1';
-                    bookScreen.style.transform = 'translateY(0)';
-                }, 100);
-                
-                createBook();
-            }, 1000);
-        }
-        
-        // Go back to home screen
-        function goHome() {
-            const birthdayScreen = document.getElementById('birthday-screen');
-            const bookScreen = document.getElementById('book-screen');
-            
-            bookScreen.style.opacity = '0';
-            bookScreen.style.transform = 'translateY(50px)';
-            
-            setTimeout(() => {
-                bookScreen.style.display = 'none';
-                birthdayScreen.style.display = 'flex';
-                
-                setTimeout(() => {
-                    birthdayScreen.style.transform = 'translateY(0)';
-                    birthdayScreen.style.opacity = '1';
-                }, 100);
-            }, 1000);
-        }
-        
-        // Flip to next page
-        function nextPage() {
-            if (currentPage < pageContent.length - 1) {
-                const pages = document.querySelectorAll('.page');
-                pages[currentPage].style.transform = 'rotateY(-180deg)';
-                currentPage++;
-                updateNavigation();
-            }
-        }
-        
-        // Flip to previous page
-        function prevPage() {
-            if (currentPage > 0) {
-                currentPage--;
-                const pages = document.querySelectorAll('.page');
-                pages[currentPage].style.transform = 'rotateY(0deg)';
-                updateNavigation();
-            }
-        }
-        
-        // Update navigation buttons
-        function updateNavigation() {
+            const giftBox = document.getElementById('giftBox');
+            const book = document.getElementById('love-book');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
-            
-            prevBtn.disabled = currentPage === 0;
-            nextBtn.disabled = currentPage === pageContent.length - 1;
-        }
-        
-        // Add parallax effect
-        document.addEventListener('mousemove', (e) => {
             const container = document.querySelector('.container');
-            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-            container.style.transform = `translate(${xAxis}px, ${yAxis}px)`;
+
+            // Constants
+            const heartCount = 30;
+            const pageContent = [
+                {
+                    img: "image2.jpg",
+                    shayari: "Tere ishq ne diya mujhe sab kuch,<br>Dard bhi diya, sukoon bhi diya."
+                },
+                {
+                    img: "image2.jpg",
+                    shayari: "Dil ki dhadkan ban gaye ho tum,<br>Har saans mein tum ho, har khwaish mein tum."
+                },
+                {
+                    img: "image2.jpg",
+                    shayari: "Tere bina adhoori si lagti hai zindagi,<br>Tujhse hi hai meri har khushi."
+                },
+                {
+                    img: "image2.jpg",
+                    shayari: "Tere chehre ki muskan hai jahan,<br>Wahan mere dil ka sukoon hai."
+                },
+                {
+                    img: "image2.jpg",
+                    shayari: "Dil ki gehrayi se nikal aaya hai ek armaan,<br>Ke tum hi ho meri zindagi ka ehsaas."
+                },
+                {
+                    img: "image2.jpg",
+                    shayari: "Tumhare ishq mein kho gaye hum,<br>Ab na kuch chahiye, bas tum ho to kaafi hai."
+                },
+                {
+                    img: "image2.jpg",
+                    shayari: "Har pal tumhare sath bitana chahta hu,<br>Tumhari har saans ka hissa ban na chahta hu."
+                },
+                {
+                    img: "image2.jpg",
+                    shayari: "Tum jo ho pass to lagta hai,<br>Duniya ki har khushi mere pass hai."
+                },
+                {
+                    img: "image2.jpg",
+                    shayari: "Tumhari yaadon mein kho kar,<br>Main har pal tumhare pass rehta hu."
+                },
+                {
+                    img: "image2.jpg",
+                    shayari: "Tum ho to har lamha khushiyon se bhara hai,<br>Tum ho to zindagi rangeen hai."
+                }
+            ];
+
+            // State
+            let currentPage = 0;
+            const pages = [];
+
+            // Functions
+            const createBgHearts = () => {
+                for (let i = 0; i < heartCount; i++) {
+                    const heart = document.createElement('div');
+                    heart.classList.add('bg-heart');
+
+                    const size = Math.random() * 15 + 10;
+                    const left = Math.random() * 100;
+                    const delay = Math.random() * 15;
+                    const duration = Math.random() * 10 + 15;
+                    const colorVal = Math.floor(Math.random() * 40) + 200;
+                    const color = `rgb(${colorVal}, ${Math.floor(colorVal/2.5)}, ${Math.floor(colorVal/1.5)})`;
+
+                    heart.style.cssText = `
+                        width: ${size}px;
+                        height: ${size}px;
+                        left: ${left}%;
+                        animation-delay: ${delay}s;
+                        animation-duration: ${duration}s;
+                        background: ${color};
+                    `;
+
+                    bgHearts.appendChild(heart);
+                }
+            };
+
+            const createBook = () => {
+                book.innerHTML = '';
+                pages.length = 0;
+
+                pageContent.forEach((content, i) => {
+                    const page = document.createElement('div');
+                    page.className = 'page';
+                    page.style.zIndex = pageContent.length - i;
+
+                    page.innerHTML = `
+                        <div class="front">
+                            <div class="page-image">
+                                <img src="${content.img}" alt="Love Page ${i+1}">
+                            </div>
+                            <div class="shayari">${content.shayari}</div>
+                            <div class="page-number">${i+1}</div>
+                        </div>
+                        <div class="back">
+                            ${i < pageContent.length - 1 ? `
+                            <div class="page-image">
+                                <img src="${pageContent[i+1].img}" alt="Love Page ${i+2}">
+                            </div>
+                            <div class="shayari">${pageContent[i+1].shayari}</div>
+                            <div class="page-number">${i+2}</div>
+                            ` : `
+                            <div class="shayari">The End</div>
+                            `}
+                        </div>
+                    `;
+
+                    book.appendChild(page);
+                    pages.push(page);
+                });
+
+                updateNavigation();
+            };
+
+            const createHeartConfetti = () => {
+                confettiContainer.innerHTML = '';
+
+                for (let i = 0; i < 100; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.classList.add('confetti');
+
+                    const left = Math.random() * 100;
+                    const delay = Math.random() * 5;
+                    const duration = 2 + Math.random() * 3;
+                    const size = 8 + Math.random() * 12;
+                    const colorVal = Math.floor(Math.random() * 40) + 200;
+                    const color = `rgb(${colorVal}, ${Math.floor(colorVal/2.5)}, ${Math.floor(colorVal/1.5)})`;
+
+                    confetti.style.cssText = `
+                        left: ${left}%;
+                        animation-delay: ${delay}s;
+                        animation-duration: ${duration}s;
+                        width: ${size}px;
+                        height: ${size}px;
+                        background: ${color};
+                    `;
+
+                    confettiContainer.appendChild(confetti);
+                }
+            };
+
+            const switchScreen = (screenToShow, screenToHide) => {
+                screenToHide.style.transform = 'translateY(-100px)';
+                screenToHide.style.opacity = '0';
+
+                setTimeout(() => {
+                    screenToHide.style.display = 'none';
+                    screenToShow.style.display = 'flex';
+
+                    setTimeout(() => {
+                        screenToShow.style.opacity = '1';
+                        screenToShow.style.transform = 'translateY(0)';
+                    }, 100);
+                }, 1000);
+            };
+
+            const openGift = () => {
+                giftAnimation.style.opacity = '1';
+                giftAnimation.style.pointerEvents = 'all';
+                giftBox.classList.add('open');
+
+                setTimeout(() => {
+                    giftAnimation.style.opacity = '0';
+                    giftAnimation.style.pointerEvents = 'none';
+
+                    createHeartConfetti();
+                    setTimeout(() => switchScreen(bookScreen, birthdayScreen), 500);
+                }, 2500);
+            };
+
+            const goHome = () => {
+                switchScreen(birthdayScreen, bookScreen);
+                currentPage = 0;
+                pages.forEach(page => page.classList.remove('flipped'));
+                updateNavigation();
+            };
+
+            const updateNavigation = () => {
+                prevBtn.disabled = currentPage === 0;
+                nextBtn.disabled = currentPage === pages.length;
+            };
+
+            const nextPage = () => {
+                if (currentPage < pages.length) {
+                    pages[currentPage].classList.add('flipped');
+                    currentPage++;
+                    updateNavigation();
+                }
+            };
+
+            const prevPage = () => {
+                if (currentPage > 0) {
+                    currentPage--;
+                    pages[currentPage].classList.remove('flipped');
+                    updateNavigation();
+                }
+            };
+
+            const handleParallax = (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                container.style.transform = `translate(${xAxis}px, ${yAxis}px) rotateX(${-yAxis/2}deg) rotateY(${xAxis/2}deg)`;
+            };
+
+            // Event Listeners
+            window.openGift = openGift;
+            window.goHome = goHome;
+            window.nextPage = nextPage;
+            window.prevPage = prevPage;
+            document.addEventListener('mousemove', handleParallax);
+
+            // Initializations
+            createBgHearts();
+            createBook();
         });
     </script>
 </body>
